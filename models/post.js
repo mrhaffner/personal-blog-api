@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const slugify = require('slugify')
 
 const Schema = mongoose.Schema
 
@@ -10,7 +11,18 @@ const PostSchema = new Schema({
     subTitle: { type: String, required: true, maxlength: 60 },
     text: { type: String, required: true, maxlength: 150 },
     date: { type: Date, required: true, default: Date.now() },
-    isPublished: { type: Boolean, default: false }
+    publishedDate: { type: Date },
+    isPublished: { type: Boolean, default: false },
+    slug: { type: String, required: true, unique: true
+    },
+})
+
+PostSchema.pre('validate', function(next) {
+    if (this.title) {
+        this.slug = slugify(this.title, {lower: true, strict: true })
+    }
+
+    next()
 })
 
 module.exports = mongoose.model('Post', PostSchema);

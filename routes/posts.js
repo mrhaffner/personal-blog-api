@@ -26,4 +26,8 @@ router.put('/:postId/update', postController.update_post)
 // change ID to slug!!!
 router.put('/:postId/publish', postController.publish_post)
 
+// delete a post - protected route
+// change ID to slug!!!
+router.delete('/:postId/delete', postController.delete_post)
+
 module.exports = router

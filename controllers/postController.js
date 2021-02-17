@@ -45,8 +45,6 @@ exports.create_post = (req, res, next) => {
         title: req.body.title,
         subTitle: req.body.subTitle,
         text: req.body.text,
-        // remove the date?? or leave it??
-        date: Date.now()
     }).save((err) => {
         if (err) { return next(err); }
         res.sendStatus(201);
@@ -69,8 +67,9 @@ exports.update_post = (req, res, next) => {
 //change ID to slug
 exports.publish_post = (req, res, next) => {
     const post = new Post({
-        isPublished: req.body.published,
-        _id: req.params.postId
+        isPublished: req.body.isPublished,
+        publishedDate: Date.now(),
+        _id: req.params.postId,
     });
     Post.findByIdAndUpdate(req.params.postId, post, {}, (err) => {
         if (err) { return next(err); };
