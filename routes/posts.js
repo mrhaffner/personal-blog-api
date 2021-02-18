@@ -13,7 +13,7 @@ router.get('/all', postController.list_post);
 
 // get a specific post - should be protected if unpublished????????
 // ?????
-router.get('/:postId', postController.display_post);
+//router.get('/:postId', postController.display_post);
 
 // create new post - protected route
 router.post('/', postController.create_post);
