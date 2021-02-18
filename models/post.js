@@ -14,7 +14,8 @@ const PostSchema = new Schema({
     unique: true,
   },
   subTitle: { type: String, required: true, maxlength: 60 },
-  text: { type: String, required: true, maxlength: 150 },
+  // make sure to set this
+  text: { type: String, required: true },
   date: { type: Date, required: true, default: Date.now() },
   publishedDate: { type: Date },
   isPublished: { type: Boolean, default: false },

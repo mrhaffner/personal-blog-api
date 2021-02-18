@@ -36,17 +36,27 @@ exports.display_post = (req, res, next) => {
   });
 };
 
-exports.create_post = (req, res, next) => {
+// exports.create_post = (req, res, next) => {
+//   const post = new Post({
+//     title: req.body.title,
+//     subTitle: req.body.subTitle,
+//     text: req.body.text,
+//   }).save((err) => {
+//     if (err) {
+//       return next(err);
+//     }
+//     res.sendStatus(201);
+//   });
+// };
+
+exports.create_post = async (req, res, next) => {
   const post = new Post({
     title: req.body.title,
     subTitle: req.body.subTitle,
     text: req.body.text,
-  }).save((err) => {
-    if (err) {
-      return next(err);
-    }
-    res.sendStatus(201);
   });
+  const savedPost = await post.save();
+  res.json(savedPost);
 };
 
 //change ID to slug
