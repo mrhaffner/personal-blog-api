@@ -1,4 +1,5 @@
 const Post = require('../models/post');
+const jwt = require('jsonwebtoken');
 
 // exports.list_published_post = (req, res, next) => {
 //   Post.find({ isPublished: true }).exec((err, post_list) => {
@@ -25,6 +26,13 @@ exports.list_published_post = async (req, res, next) => {
 // };
 
 exports.list_unpublished_post = async (req, res, next) => {
+  const decodedToken = jwt.verify(req.token, process.env.SECRET);
+  if (!req.token || !decodedToken.id) {
+    return res
+      .status(401)
+      .json({ error: 'token missing or invalid' });
+  }
+
   const posts = await Post.find({ isPublished: false });
   const sortedPosts = posts.sort((a, b) => {
     let c = new Date(a.date);
@@ -42,6 +50,13 @@ exports.list_unpublished_post = async (req, res, next) => {
 // };
 
 exports.list_post = async (req, res, next) => {
+  const decodedToken = jwt.verify(req.token, process.env.SECRET);
+  if (!req.token || !decodedToken.id) {
+    return res
+      .status(401)
+      .json({ error: 'token missing or invalid' });
+  }
+
   const posts = await Post.find({});
   const sortedPosts = posts.sort((a, b) => {
     let c = new Date(a.date);
@@ -82,6 +97,13 @@ exports.list_post = async (req, res, next) => {
 
 //add error handling
 exports.create_post = async (req, res, next) => {
+  const decodedToken = jwt.verify(req.token, process.env.SECRET);
+  if (!req.token || !decodedToken.id) {
+    return res
+      .status(401)
+      .json({ error: 'token missing or invalid' });
+  }
+
   const post = new Post({
     title: req.body.title,
     subTitle: req.body.subTitle,
@@ -108,6 +130,13 @@ exports.create_post = async (req, res, next) => {
 
 //add error handling
 exports.update_post = async (req, res, next) => {
+  const decodedToken = jwt.verify(req.token, process.env.SECRET);
+  if (!req.token || !decodedToken.id) {
+    return res
+      .status(401)
+      .json({ error: 'token missing or invalid' });
+  }
+
   const post = new Post({
     title: req.body.title,
     text: req.body.text,
@@ -137,6 +166,12 @@ exports.update_post = async (req, res, next) => {
 // };
 
 exports.publish_post = async (req, res, next) => {
+  const decodedToken = jwt.verify(req.token, process.env.SECRET);
+  if (!req.token || !decodedToken.id) {
+    return res
+      .status(401)
+      .json({ error: 'token missing or invalid' });
+  }
   const post = new Post({
     isPublished: req.body.isPublished,
     publishedDate: Date.now(),
@@ -157,6 +192,12 @@ exports.publish_post = async (req, res, next) => {
 // };
 
 exports.delete_post = async (req, res, next) => {
+  const decodedToken = jwt.verify(req.token, process.env.SECRET);
+  if (!req.token || !decodedToken.id) {
+    return res
+      .status(401)
+      .json({ error: 'token missing or invalid' });
+  }
   await Post.findByIdAndRemove(req.params.postId);
   res.status(204).end();
 };
