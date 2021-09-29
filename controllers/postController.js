@@ -141,6 +141,7 @@ exports.update_post = async (req, res, next) => {
     title: req.body.title,
     text: req.body.text,
     _id: req.params.postId,
+    isPublished: req.body.isPublished,
   });
   const updatedPost = await Post.findByIdAndUpdate(
     req.params.postId,
