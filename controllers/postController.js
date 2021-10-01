@@ -142,6 +142,14 @@ exports.update_post = async (req, res, next) => {
       .json({ error: 'token missing or invalid' });
   }
 
+  const postCheck = await Post.findOne({ title: req.body.title });
+  if (
+    postCheck &&
+    postCheck._id.toString() !== req.params.postId.toString()
+  ) {
+    return res.status(400).json({ error: 'title already in use!' });
+  }
+
   const post = new Post({
     title: req.body.title,
     text: req.body.text,
