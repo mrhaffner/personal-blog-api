@@ -103,6 +103,11 @@ exports.create_post = async (req, res, next) => {
       .status(401)
       .json({ error: 'token missing or invalid' });
   }
+  const postCheck = await Post.find({ title: req.body.title });
+
+  if (postCheck) {
+    return res.status(400).json({ error: 'title already in use!' });
+  }
 
   const post = new Post({
     title: req.body.title,
