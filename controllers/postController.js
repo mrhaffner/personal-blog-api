@@ -1,13 +1,6 @@
 const Post = require('../models/post');
 const jwt = require('jsonwebtoken');
 
-// exports.list_published_post = (req, res, next) => {
-//   Post.find({ isPublished: true }).exec((err, post_list) => {
-//     if (err) return next(err);
-//     res.json(post_list);
-//   });
-// };
-
 exports.list_published_post = async (req, res, next) => {
   const posts = await Post.find({ isPublished: true });
   const sortedPosts = posts.sort((a, b) => {
@@ -17,13 +10,6 @@ exports.list_published_post = async (req, res, next) => {
   });
   res.json(sortedPosts);
 };
-
-// exports.list_unpublished_post = (req, res, next) => {
-//   Post.find({ isPublished: false }).exec((err, post_list) => {
-//     if (err) return next(err);
-//     res.json(post_list);
-//   });
-// };
 
 exports.list_unpublished_post = async (req, res, next) => {
   const decodedToken = jwt.verify(req.token, process.env.SECRET);
@@ -41,13 +27,6 @@ exports.list_unpublished_post = async (req, res, next) => {
   });
   res.json(sortedPosts);
 };
-
-// exports.list_post = (req, res, next) => {
-//   Post.find({}).exec((err, post_list) => {
-//     if (err) return next(err);
-//     res.json(post_list);
-//   });
-// };
 
 exports.list_post = async (req, res, next) => {
   const decodedToken = jwt.verify(req.token, process.env.SECRET);
@@ -82,19 +61,6 @@ exports.list_post = async (req, res, next) => {
 //   });
 // };
 
-// exports.create_post = (req, res, next) => {
-//   const post = new Post({
-//     title: req.body.title,
-//     subTitle: req.body.subTitle,
-//     text: req.body.text,
-//   }).save((err) => {
-//     if (err) {
-//       return next(err);
-//     }
-//     res.sendStatus(201);
-//   });
-// };
-
 //add error handling
 exports.create_post = async (req, res, next) => {
   const decodedToken = jwt.verify(req.token, process.env.SECRET);
@@ -117,21 +83,6 @@ exports.create_post = async (req, res, next) => {
   const savedPost = await post.save();
   res.json(savedPost);
 };
-
-//change ID to slug
-// exports.update_post = (req, res, next) => {
-//   const post = new Post({
-//     title: req.body.title,
-//     text: req.body.text,
-//     _id: req.params.postId,
-//   });
-//   Post.findByIdAndUpdate(req.params.postId, post, {}, (err) => {
-//     if (err) {
-//       return next(err);
-//     }
-//     res.sendStatus(201);
-//   });
-// };
 
 //add error handling
 exports.update_post = async (req, res, next) => {
@@ -165,21 +116,6 @@ exports.update_post = async (req, res, next) => {
   res.json(updatedPost);
 };
 
-//change ID to slug
-// exports.publish_post = (req, res, next) => {
-//   const post = new Post({
-//     isPublished: req.body.isPublished,
-//     publishedDate: Date.now(),
-//     _id: req.params.postId,
-//   });
-//   Post.findByIdAndUpdate(req.params.postId, post, {}, (err) => {
-//     if (err) {
-//       return next(err);
-//     }
-//     res.sendStatus(201);
-//   });
-// };
-
 exports.publish_post = async (req, res, next) => {
   const decodedToken = jwt.verify(req.token, process.env.SECRET);
   if (!req.token || !decodedToken.id) {
@@ -195,16 +131,6 @@ exports.publish_post = async (req, res, next) => {
   await Post.findByIdAndUpdate(req.params.postId, post, {});
   res.sendStatus(201).end();
 };
-
-//change ID to slug
-// exports.delete_post = (req, res, next) => {
-//   Post.findByIdAndRemove(req.params.postId, (err) => {
-//     if (err) {
-//       return next(err);
-//     }
-//     res.sendStatus(200);
-//   });
-// };
 
 exports.delete_post = async (req, res, next) => {
   const decodedToken = jwt.verify(req.token, process.env.SECRET);

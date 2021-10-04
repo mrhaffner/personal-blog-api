@@ -3,9 +3,6 @@ const slugify = require('slugify');
 
 const Schema = mongoose.Schema;
 
-//preview ?
-//images ?
-
 const PostSchema = new Schema({
   title: {
     type: String,
@@ -14,7 +11,6 @@ const PostSchema = new Schema({
     unique: true,
   },
   subTitle: { type: String, required: true, maxlength: 60 },
-  // make sure to set this
   text: { type: String, required: true },
   date: { type: Date, required: true, default: Date.now() },
   publishedDate: { type: Date },
