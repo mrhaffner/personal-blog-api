@@ -18,9 +18,21 @@ UserSchema.set('toJSON', {
     returnedObject.id = returnedObject._id.toString();
     delete returnedObject._id;
     delete returnedObject.__v;
-    // the passwordHash should not be revealed
     delete returnedObject.passwordHash;
   },
 });
+
+class User {
+  static getUserByUsername(username) {
+    return this.findOne({ username });
+  }
+
+  static createUser(userObj) {
+    const user = new User({ userObj });
+    return user.save();
+  }
+}
+
+UserSchema.loadClass(User);
 
 module.exports = mongoose.model('User', UserSchema);

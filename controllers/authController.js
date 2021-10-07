@@ -5,7 +5,7 @@ const User = require('../models/user');
 exports.login = async (request, response) => {
   const body = request.body;
 
-  const user = await User.findOne({ username: body.username });
+  const user = await User.getUserByUsername(body.username);
   const passwordCorrect =
     user === null
       ? false

@@ -13,12 +13,12 @@ exports.create_user = async (request, response) => {
   const saltRounds = 10;
   const passwordHash = await bcrypt.hash(body.password, saltRounds);
 
-  const user = new User({
+  const user = {
     username: body.username,
     passwordHash,
-  });
+  };
 
-  const savedUser = await user.save();
+  const savedUser = await User.createUser(user);
 
   response.json(savedUser);
 };
