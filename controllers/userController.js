@@ -17,8 +17,10 @@ exports.create_user = async (request, response) => {
     username: body.username,
     passwordHash,
   };
-
-  const savedUser = await User.createUser(user);
-
-  response.json(savedUser);
+  try {
+    const savedUser = await User.createUser(user);
+    response.json(savedUser);
+  } catch (error) {
+    res.status(400).json({ error });
+  }
 };
