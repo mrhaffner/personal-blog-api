@@ -10,6 +10,11 @@ https://user-images.githubusercontent.com/70085763/135778777-0de25ece-f328-4c26-
 
 https://github.com/mrhaffner/personal-blog-front
 
+## Features
+
+- CRUD operations for blog posts and users
+- User creation / authentication / authorization
+
 ## Built with:
 
 * Node / Express
