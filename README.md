@@ -1,15 +1,27 @@
-### This is the API for my Personal Blog project!
+## Personal Blog
 
-#### Main technologies and libraries used:
+A prototype for a personal blogging website (back end).
+
+## Watch the demo:
+
+https://user-images.githubusercontent.com/70085763/135778777-0de25ece-f328-4c26-8854-be16c4e23b45.mp4
+
+## Visit the front end's repository:
+
+https://github.com/mrhaffner/personal-blog-front
+
+## Built with:
 
 * Node / Express
 * MongoDB / Mongoose
 * JSON Web Token / BCrypt
 
-#### Watch the demo:
+## Acknowledgements:
 
-https://user-images.githubusercontent.com/70085763/135778692-f91c0929-7f68-4926-ae88-4dbb81c9a887.mp4
+Images from Unsplash.com
 
-#### Visit the front end's repository:
+## Potential improvements:
 
-https://github.com/mrhaffner/personal-blog-front
+- Testing
+- Proper documentation / comments
+- Improved Javascript style
